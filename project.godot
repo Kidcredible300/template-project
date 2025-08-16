@@ -13,3 +13,17 @@ config_version=5
 config/name="Template Project"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://drlghobvel1tu"
+
+[autoload]
+
+GlobalSettings="*res://Scripts/Menu/global_settings.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
