@@ -1,0 +1,9 @@
+To use this template, do the following:
+
+1. Download this GitHub project (either git clone, or download as a ZIP)
+2. Open up the Godot Game Engine
+3. Select "Import", then navigate to the project.godot file located inside of this project.
+
+If you want to use some of the files from this project, or add it to another project, it's pretty simple.
+Follow the same steps, but instead of importing the project.godot, just move the files you want to use into your existing Godot project.
+NOTE: This method is not reccomended, as if Scripts or Scenes are stored differently, something could crash.
