@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Template Project"
+run/main_scene="uid://cruklgu2nc3fd"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,7 +21,7 @@ buses/default_bus_layout="uid://drlghobvel1tu"
 
 [autoload]
 
-GlobalSettings="*res://Scripts/Menu/global_settings.gd"
+GlobalSettings="*res://scripts/menu/global_settings.gd"
 
 [display]
 

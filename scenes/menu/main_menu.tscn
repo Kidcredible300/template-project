@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cruklgu2nc3fd"]
+[gd_scene load_steps=8 format=3 uid="uid://cruklgu2nc3fd"]
 
-[ext_resource type="Script" uid="uid://d38tp0fjlsg6n" path="res://Scripts/Menu/scene_change.gd" id="1_bkwd7"]
-[ext_resource type="Script" uid="uid://bqlvpr8anm0cb" path="res://Scripts/Menu/menu_focus.gd" id="1_vmek6"]
-[ext_resource type="Script" uid="uid://crnyi0ppi7qeq" path="res://Scripts/Menu/change_menu.gd" id="2_7jtkx"]
-[ext_resource type="Script" uid="uid://ubj8sdpc3djb" path="res://Scripts/Menu/quit_button.gd" id="2_tself"]
-[ext_resource type="Script" uid="uid://jt4vd5nu2fgj" path="res://Scripts/Menu/volume_bar.gd" id="5_ab7fb"]
+[ext_resource type="Script" uid="uid://bqlvpr8anm0cb" path="res://scripts/menu/menu_focus.gd" id="1_hj162"]
+[ext_resource type="Theme" uid="uid://cegyp5c4jrryo" path="res://miscellaneous/Theme.tres" id="1_xn6kt"]
+[ext_resource type="Script" uid="uid://d38tp0fjlsg6n" path="res://scripts/menu/scene_change.gd" id="2_xn6kt"]
+[ext_resource type="Script" uid="uid://crnyi0ppi7qeq" path="res://scripts/menu/change_menu.gd" id="3_isoef"]
+[ext_resource type="Script" uid="uid://ubj8sdpc3djb" path="res://scripts/menu/quit_button.gd" id="4_qgo02"]
+[ext_resource type="PackedScene" uid="uid://cd7sn15ycn4qy" path="res://scenes/menu/options.tscn" id="6_xn6kt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s51c5"]
 font_size = 64
@@ -37,6 +38,7 @@ offset_left = -197.0
 offset_right = 197.0
 offset_bottom = 67.0
 grow_horizontal = 2
+theme = ExtResource("1_xn6kt")
 text = "Template Project"
 label_settings = SubResource("LabelSettings_s51c5")
 horizontal_alignment = 1
@@ -55,18 +57,17 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vmek6")
+script = ExtResource("1_hj162")
 first_element = NodePath("Options Button")
 
 [node name="Start Button" type="Button" parent="UI/Normal Buttons"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-focus_neighbor_top = NodePath("../Quit Button")
 focus_neighbor_bottom = NodePath("../Options Button")
 focus_next = NodePath("../Options Button")
-focus_previous = NodePath("../Quit Button")
+theme = ExtResource("1_xn6kt")
 text = "Start"
-script = ExtResource("1_bkwd7")
+script = ExtResource("2_xn6kt")
 
 [node name="Options Button" type="Button" parent="UI/Normal Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
 custom_minimum_size = Vector2(200, 50)
@@ -75,16 +76,20 @@ focus_neighbor_top = NodePath("../Start Button")
 focus_neighbor_bottom = NodePath("../Quit Button")
 focus_next = NodePath("../Quit Button")
 focus_previous = NodePath("../Start Button")
+theme = ExtResource("1_xn6kt")
 text = "Options"
-script = ExtResource("2_7jtkx")
+script = ExtResource("3_isoef")
 to_hide = NodePath("..")
 to_show = NodePath("../../Options Buttons")
 
 [node name="Quit Button" type="Button" parent="UI/Normal Buttons"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Options Button")
+focus_previous = NodePath("../Options Button")
+theme = ExtResource("1_xn6kt")
 text = "Quit"
-script = ExtResource("2_tself")
+script = ExtResource("4_qgo02")
 
 [node name="Options Buttons" type="VBoxContainer" parent="UI" node_paths=PackedStringArray("first_element")]
 visible = false
@@ -99,44 +104,20 @@ offset_right = 4.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vmek6")
+script = ExtResource("1_hj162")
 first_element = NodePath("Return Button")
 
-[node name="Master Label" type="Label" parent="UI/Options Buttons"]
+[node name="Options" parent="UI/Options Buttons" instance=ExtResource("6_xn6kt")]
 layout_mode = 2
-text = "Master Volume"
-
-[node name="Master Volume" type="HSlider" parent="UI/Options Buttons"]
-layout_mode = 2
-value = 100.0
-script = ExtResource("5_ab7fb")
-bus_name = "Master"
-
-[node name="Music Label" type="Label" parent="UI/Options Buttons"]
-layout_mode = 2
-text = "Music Volume"
-
-[node name="Music Volume" type="HSlider" parent="UI/Options Buttons"]
-layout_mode = 2
-value = 100.0
-script = ExtResource("5_ab7fb")
-bus_name = "Music"
-
-[node name="Sound Label" type="Label" parent="UI/Options Buttons"]
-layout_mode = 2
-text = "Sound Volume"
-
-[node name="Sound Volume" type="HSlider" parent="UI/Options Buttons"]
-layout_mode = 2
-value = 100.0
-script = ExtResource("5_ab7fb")
-bus_name = "Sound"
 
 [node name="Return Button" type="Button" parent="UI/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Options/Fullscreen")
+focus_previous = NodePath("../Options/Fullscreen")
+theme = ExtResource("1_xn6kt")
 text = "Return"
-script = ExtResource("2_7jtkx")
+script = ExtResource("3_isoef")
 to_hide = NodePath("..")
 to_show = NodePath("../../Normal Buttons")
 
@@ -145,7 +126,4 @@ to_show = NodePath("../../Normal Buttons")
 [connection signal="pressed" from="UI/Normal Buttons/Options Button" to="UI/Normal Buttons/Options Button" method="_on_pressed"]
 [connection signal="pressed" from="UI/Normal Buttons/Quit Button" to="UI/Normal Buttons/Quit Button" method="_on_pressed"]
 [connection signal="visibility_changed" from="UI/Options Buttons" to="UI/Options Buttons" method="_on_visibility_changed"]
-[connection signal="value_changed" from="UI/Options Buttons/Master Volume" to="UI/Options Buttons/Master Volume" method="_on_value_changed"]
-[connection signal="value_changed" from="UI/Options Buttons/Music Volume" to="UI/Options Buttons/Music Volume" method="_on_value_changed"]
-[connection signal="value_changed" from="UI/Options Buttons/Sound Volume" to="UI/Options Buttons/Sound Volume" method="_on_value_changed"]
 [connection signal="pressed" from="UI/Options Buttons/Return Button" to="UI/Options Buttons/Return Button" method="_on_pressed"]
