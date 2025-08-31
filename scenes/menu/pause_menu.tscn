@@ -1,0 +1,369 @@
+[gd_scene load_steps=10 format=3 uid="uid://bquv2mx553t8e"]
+
+[ext_resource type="Theme" uid="uid://cegyp5c4jrryo" path="res://miscellaneous/Theme.tres" id="1_xkyws"]
+[ext_resource type="Script" uid="uid://bqlvpr8anm0cb" path="res://scripts/menu/navigation/menu_focus.gd" id="2_rdkub"]
+[ext_resource type="Script" uid="uid://d38tp0fjlsg6n" path="res://scripts/menu/navigation/scene_change.gd" id="3_eb3yi"]
+[ext_resource type="Script" uid="uid://qk6dwdig2fy5" path="res://scripts/menu/unpause_button.gd" id="3_xkyws"]
+[ext_resource type="Script" uid="uid://crnyi0ppi7qeq" path="res://scripts/menu/navigation/change_menu.gd" id="4_a7btn"]
+[ext_resource type="Script" uid="uid://jt4vd5nu2fgj" path="res://scripts/menu/settings/volume_bar.gd" id="6_devpi"]
+[ext_resource type="PackedScene" uid="uid://cruklgu2nc3fd" path="res://scenes/menu/main_menu.tscn" id="6_rdkub"]
+[ext_resource type="Script" uid="uid://c1da0c2oukwk8" path="res://scripts/menu/settings/fullscreen.gd" id="7_u7ct7"]
+[ext_resource type="Script" uid="uid://buiuhfgubvqiu" path="res://scripts/menu/settings/input_settings.gd" id="8_2pedh"]
+
+[node name="Pause Menu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.380392)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="CanvasLayer" parent="."]
+
+[node name="Paused Label" type="Label" parent="Label"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_right = 66.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("1_xkyws")
+theme_type_variation = &"HeaderLarge"
+text = "Game is Paused!"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Normal" type="PanelContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -94.0
+offset_right = 129.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xkyws")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Normal"]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+
+[node name="Normal Buttons" type="VBoxContainer" parent="UI/Normal/MarginContainer" node_paths=PackedStringArray("first_element")]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+script = ExtResource("2_rdkub")
+first_element = NodePath("Options Button")
+
+[node name="Resume Button" type="Button" parent="UI/Normal/MarginContainer/Normal Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../Options Button")
+focus_next = NodePath("../Options Button")
+theme = ExtResource("1_xkyws")
+text = "Resume"
+script = ExtResource("3_xkyws")
+
+[node name="Options Button" type="Button" parent="UI/Normal/MarginContainer/Normal Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../Resume Button")
+focus_neighbor_bottom = NodePath("../Quit Button")
+focus_next = NodePath("../Quit Button")
+focus_previous = NodePath("../Resume Button")
+theme = ExtResource("1_xkyws")
+text = "Options"
+script = ExtResource("4_a7btn")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Options")
+
+[node name="Quit Button" type="Button" parent="UI/Normal/MarginContainer/Normal Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../Options Button")
+focus_previous = NodePath("../Options Button")
+theme = ExtResource("1_xkyws")
+text = "Quit to Menu"
+script = ExtResource("3_eb3yi")
+next_scene = ExtResource("6_rdkub")
+
+[node name="Options" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -234.0
+offset_right = 133.0
+offset_bottom = 234.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xkyws")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Options"]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+
+[node name="Options Buttons" type="VBoxContainer" parent="UI/Options/MarginContainer" node_paths=PackedStringArray("first_element")]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+script = ExtResource("2_rdkub")
+first_element = NodePath("Return Button")
+
+[node name="Master Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Master Volume"
+
+[node name="Master Volume" type="HSlider" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_bottom = NodePath("../Music Volume")
+focus_next = NodePath("../Music Volume")
+theme = ExtResource("1_xkyws")
+value = 100.0
+script = ExtResource("6_devpi")
+bus_name = "Master"
+
+[node name="Music Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Music Volume"
+
+[node name="Music Volume" type="HSlider" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_top = NodePath("../Master Volume")
+focus_neighbor_bottom = NodePath("../Sound Volume")
+focus_next = NodePath("../Sound Volume")
+focus_previous = NodePath("../Master Volume")
+theme = ExtResource("1_xkyws")
+value = 100.0
+script = ExtResource("6_devpi")
+bus_name = "Music"
+
+[node name="Sound Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Sound Volume"
+
+[node name="Sound Volume" type="HSlider" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_top = NodePath("../Music Volume")
+focus_neighbor_bottom = NodePath("../Fullscreen")
+focus_next = NodePath("../Fullscreen")
+focus_previous = NodePath("../Music Volume")
+theme = ExtResource("1_xkyws")
+value = 100.0
+script = ExtResource("6_devpi")
+bus_name = "Sound"
+
+[node name="Fullscreen Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Window Mode"
+
+[node name="Fullscreen" type="OptionButton" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_top = NodePath("../Sound Volume")
+focus_previous = NodePath("../Sound Volume")
+theme = ExtResource("1_xkyws")
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
+script = ExtResource("7_u7ct7")
+
+[node name="Controls Button" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Keyboard Bindings"
+script = ExtResource("4_a7btn")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Keyboard Controls")
+
+[node name="Controls Button2" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Gamepad Bindings"
+script = ExtResource("4_a7btn")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Gamepad Controls")
+
+[node name="Spacer" type="Control" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xkyws")
+
+[node name="Return Button" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xkyws")
+text = "Return"
+script = ExtResource("4_a7btn")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Normal")
+
+[node name="Keyboard Controls" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -649.0
+offset_top = -367.0
+offset_right = 649.0
+offset_bottom = 367.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xkyws")
+script = ExtResource("8_2pedh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Keyboard Controls"]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Keyboard Controls/MarginContainer" node_paths=PackedStringArray("first_element")]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+script = ExtResource("2_rdkub")
+first_element = NodePath("Return Button2")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Keyboard Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xkyws")
+
+[node name="Action List" type="VBoxContainer" parent="UI/Keyboard Controls/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_xkyws")
+
+[node name="Reset Button" type="Button" parent="UI/Keyboard Controls/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xkyws")
+text = "Reset to Default"
+
+[node name="Return Button2" type="Button" parent="UI/Keyboard Controls/MarginContainer/VBoxContainer" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xkyws")
+text = "Return"
+script = ExtResource("4_a7btn")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Options")
+
+[node name="Gamepad Controls" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -649.0
+offset_top = -367.0
+offset_right = 649.0
+offset_bottom = 367.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xkyws")
+script = ExtResource("8_2pedh")
+input_set = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Gamepad Controls"]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Gamepad Controls/MarginContainer" node_paths=PackedStringArray("first_element")]
+layout_mode = 2
+theme = ExtResource("1_xkyws")
+script = ExtResource("2_rdkub")
+first_element = NodePath("Return Button2")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Gamepad Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xkyws")
+
+[node name="Action List" type="VBoxContainer" parent="UI/Gamepad Controls/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_xkyws")
+
+[node name="Reset Button" type="Button" parent="UI/Gamepad Controls/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xkyws")
+text = "Reset to Default"
+
+[node name="Return Button2" type="Button" parent="UI/Gamepad Controls/MarginContainer/VBoxContainer" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xkyws")
+text = "Return"
+script = ExtResource("4_a7btn")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Options")
+
+[connection signal="visibility_changed" from="UI/Normal/MarginContainer/Normal Buttons" to="UI/Normal/MarginContainer/Normal Buttons" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Resume Button" to="UI/Normal/MarginContainer/Normal Buttons/Resume Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Options Button" to="UI/Normal/MarginContainer/Normal Buttons/Options Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Quit Button" to="UI/Normal/MarginContainer/Normal Buttons/Quit Button" method="_on_pressed"]
+[connection signal="visibility_changed" from="UI/Options/MarginContainer/Options Buttons" to="UI/Options/MarginContainer/Options Buttons" method="_on_visibility_changed"]
+[connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Master Volume" to="UI/Options/MarginContainer/Options Buttons/Master Volume" method="_on_value_changed"]
+[connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Music Volume" to="UI/Options/MarginContainer/Options Buttons/Music Volume" method="_on_value_changed"]
+[connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Sound Volume" to="UI/Options/MarginContainer/Options Buttons/Sound Volume" method="_on_value_changed"]
+[connection signal="item_selected" from="UI/Options/MarginContainer/Options Buttons/Fullscreen" to="UI/Options/MarginContainer/Options Buttons/Fullscreen" method="_on_item_selected"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Controls Button" to="UI/Options/MarginContainer/Options Buttons/Controls Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Controls Button2" to="UI/Options/MarginContainer/Options Buttons/Controls Button2" method="_on_pressed"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Return Button" to="UI/Options/MarginContainer/Options Buttons/Return Button" method="_on_pressed"]
+[connection signal="visibility_changed" from="UI/Keyboard Controls/MarginContainer/VBoxContainer" to="UI/Keyboard Controls/MarginContainer/VBoxContainer" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/Keyboard Controls/MarginContainer/VBoxContainer/Reset Button" to="UI/Keyboard Controls" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="UI/Keyboard Controls/MarginContainer/VBoxContainer/Return Button2" to="UI/Keyboard Controls/MarginContainer/VBoxContainer/Return Button2" method="_on_pressed"]
+[connection signal="pressed" from="UI/Gamepad Controls/MarginContainer/VBoxContainer/Reset Button" to="UI/Gamepad Controls" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="UI/Gamepad Controls/MarginContainer/VBoxContainer/Return Button2" to="UI/Gamepad Controls/MarginContainer/VBoxContainer/Return Button2" method="_on_pressed"]

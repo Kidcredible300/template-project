@@ -21,7 +21,8 @@ buses/default_bus_layout="uid://drlghobvel1tu"
 
 [autoload]
 
-ConfigHandler="*res://scripts/menu/config_handler.gd"
+ConfigHandler="*res://scripts/autoload/config_handler.gd"
+GameManager="*res://scripts/autoload/game_manager.gd"
 
 [display]
 
