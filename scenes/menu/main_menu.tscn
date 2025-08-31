@@ -38,6 +38,7 @@ offset_right = 66.0
 offset_bottom = 23.0
 grow_horizontal = 2
 theme = ExtResource("1_xn6kt")
+theme_type_variation = &"HeaderLarge"
 text = "Template Project"
 horizontal_alignment = 1
 

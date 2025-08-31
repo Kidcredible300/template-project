@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dame0ghdnacu3"]
+
+[ext_resource type="Script" uid="uid://rp45q5ggxrfj" path="res://addons/ultimate_platformer_controller_2d/UltimatePlatformerController.gd" id="1_es0i7"]
+[ext_resource type="Texture2D" uid="uid://cx05jr6jbxcdd" path="res://icon.svg" id="2_qspu3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wui4b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qspu3")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_er8hk"]
+size = Vector2(128, 128)
+
+[node name="PlatformerPlayer" type="CharacterBody2D" node_paths=PackedStringArray("PlayerSprite", "PlayerCollider")]
+script = ExtResource("1_es0i7")
+PlayerSprite = NodePath("AnimatedSprite2D")
+PlayerCollider = NodePath("CollisionShape2D")
+idle = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wui4b")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_er8hk")
