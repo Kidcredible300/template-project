@@ -1,8 +1,8 @@
 extends Node
 
-var master_vol : float = 100
-var music_vol : float = 100
-var sound_vol : float = 100
+var master_vol : float = 1
+var music_vol : float = 1
+var sound_vol : float = 1
 
 
 func get_volume(channel : String) -> float:

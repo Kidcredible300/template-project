@@ -7,9 +7,7 @@
 [ext_resource type="Script" uid="uid://ubj8sdpc3djb" path="res://scripts/menu/quit_button.gd" id="4_qgo02"]
 [ext_resource type="Script" uid="uid://jt4vd5nu2fgj" path="res://scripts/menu/volume_bar.gd" id="6_isoef"]
 [ext_resource type="Script" uid="uid://c1da0c2oukwk8" path="res://scripts/menu/fullscreen.gd" id="7_qgo02"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_s51c5"]
-font_size = 64
+[ext_resource type="Script" uid="uid://buiuhfgubvqiu" path="res://scripts/menu/input_settings.gd" id="8_vovv2"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -35,42 +33,37 @@ color = Color(0.195877, 0.195877, 0.195877, 1)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -197.0
-offset_right = 197.0
-offset_bottom = 67.0
+offset_left = -66.0
+offset_right = 66.0
+offset_bottom = 23.0
 grow_horizontal = 2
 theme = ExtResource("1_xn6kt")
 text = "Template Project"
-label_settings = SubResource("LabelSettings_s51c5")
 horizontal_alignment = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Normal" type="Panel" parent="UI"]
+[node name="Normal" type="PanelContainer" parent="UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -129.0
-offset_top = -96.0
+offset_top = -94.0
 offset_right = 129.0
-offset_bottom = 96.0
+offset_bottom = 94.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xn6kt")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Normal"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("1_xn6kt")
 
 [node name="Normal Buttons" type="VBoxContainer" parent="UI/Normal/MarginContainer" node_paths=PackedStringArray("first_element")]
 layout_mode = 2
+theme = ExtResource("1_xn6kt")
 script = ExtResource("1_hj162")
 first_element = NodePath("Options Button")
 
@@ -105,34 +98,30 @@ theme = ExtResource("1_xn6kt")
 text = "Quit"
 script = ExtResource("4_qgo02")
 
-[node name="Options" type="Panel" parent="UI"]
+[node name="Options" type="PanelContainer" parent="UI"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -121.0
-offset_top = -156.0
-offset_right = 121.0
-offset_bottom = 156.0
+offset_left = -124.0
+offset_top = -185.0
+offset_right = 124.0
+offset_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xn6kt")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Options"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme = ExtResource("1_xn6kt")
 
 [node name="Options Buttons" type="VBoxContainer" parent="UI/Options/MarginContainer" node_paths=PackedStringArray("first_element")]
 layout_mode = 2
+theme = ExtResource("1_xn6kt")
 script = ExtResource("1_hj162")
-first_element = NodePath("Return Button")
+first_element = NodePath("Controls Button")
 
 [node name="Master Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
 layout_mode = 2
@@ -208,11 +197,22 @@ popup/item_2/text = "Exclusive Fullscreen"
 popup/item_2/id = 2
 script = ExtResource("7_qgo02")
 
+[node name="Controls Button" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xn6kt")
+text = "Controls"
+script = ExtResource("3_isoef")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Controls")
+
 [node name="Spacer" type="Control" parent="UI/Options/MarginContainer/Options Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("1_xn6kt")
 
-[node name="Return Button" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+[node name="Return Button2" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 6
@@ -221,6 +221,59 @@ text = "Return"
 script = ExtResource("3_isoef")
 to_hide = NodePath("../../..")
 to_show = NodePath("../../../../Normal")
+
+[node name="Controls" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -649.0
+offset_top = -367.0
+offset_right = 649.0
+offset_bottom = 367.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xn6kt")
+script = ExtResource("8_vovv2")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Controls"]
+layout_mode = 2
+theme = ExtResource("1_xn6kt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Controls/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_xn6kt")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_xn6kt")
+
+[node name="Action List" type="VBoxContainer" parent="UI/Controls/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_xn6kt")
+
+[node name="Reset Button" type="Button" parent="UI/Controls/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xn6kt")
+text = "Reset to Default"
+
+[node name="Return Button2" type="Button" parent="UI/Controls/MarginContainer/VBoxContainer" node_paths=PackedStringArray("to_hide", "to_show")]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_xn6kt")
+text = "Return"
+script = ExtResource("3_isoef")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Options")
 
 [connection signal="visibility_changed" from="UI/Normal/MarginContainer/Normal Buttons" to="UI/Normal/MarginContainer/Normal Buttons" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Start Button" to="UI/Normal/MarginContainer/Normal Buttons/Start Button" method="_on_pressed"]
@@ -231,4 +284,7 @@ to_show = NodePath("../../../../Normal")
 [connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Music Volume" to="UI/Options/MarginContainer/Options Buttons/Music Volume" method="_on_value_changed"]
 [connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Sound Volume" to="UI/Options/MarginContainer/Options Buttons/Sound Volume" method="_on_value_changed"]
 [connection signal="item_selected" from="UI/Options/MarginContainer/Options Buttons/Fullscreen" to="UI/Options/MarginContainer/Options Buttons/Fullscreen" method="_on_item_selected"]
-[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Return Button" to="UI/Options/MarginContainer/Options Buttons/Return Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Controls Button" to="UI/Options/MarginContainer/Options Buttons/Controls Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Return Button2" to="UI/Options/MarginContainer/Options Buttons/Return Button2" method="_on_pressed"]
+[connection signal="pressed" from="UI/Controls/MarginContainer/VBoxContainer/Reset Button" to="UI/Controls" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="UI/Controls/MarginContainer/VBoxContainer/Return Button2" to="UI/Controls/MarginContainer/VBoxContainer/Return Button2" method="_on_pressed"]
