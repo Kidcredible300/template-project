@@ -33,10 +33,18 @@ func _make_input_dictionary() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if is_remapping and event.get_class() in ["InputEventKey", "InputEventMouseButton"] and input_set in keyboard_sets:
-		_remap(event)
-	if is_remapping and event.get_class() in ["InputEventJoypadButton", "InputEventJoypadMotion"] and input_set in keyboard_sets:
-		_remap(event)
+	if is_remapping:
+		if input_set in keyboard_sets:
+			if event.get_class() in ["InputEventKey", "InputEventMouseButton"]:
+				_remap(event)
+			else:
+				_finish_mapping()
+		if input_set in gamepad_sets:
+			if event.get_class() in ["InputEventJoypadButton", "InputEventJoypadMotion"]:
+				_remap(event)
+			else:
+				_finish_mapping()
+		accept_event()
 
 
 func _remap(event : InputEvent) -> void:
@@ -51,13 +59,16 @@ func _remap(event : InputEvent) -> void:
 		else:
 			InputMap.action_add_event(action_to_remap, events[i])
 	events = InputMap.action_get_events(action_to_remap)
+	_finish_mapping()
+
+
+func _finish_mapping() -> void:
+	var events : Array = InputMap.action_get_events(action_to_remap)
 	remapping_button.find_child("Label Input").text = _fix_input_name(events[input_set].as_text())
 	
 	is_remapping = false
 	action_to_remap = null
 	remapping_button = null
-	
-	accept_event()
 
 
 func _create_action_list() -> void:

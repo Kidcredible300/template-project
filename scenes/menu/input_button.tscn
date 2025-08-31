@@ -49,8 +49,10 @@ mouse_filter = 1
 theme = ExtResource("1_nsjl2")
 
 [node name="Label Input" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("1_nsjl2")
 text = "Input Key"
+horizontal_alignment = 1
 vertical_alignment = 1
