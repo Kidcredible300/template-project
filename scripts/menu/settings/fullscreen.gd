@@ -5,10 +5,10 @@ const WINDOW_MODES : Array[DisplayServer.WindowMode] = [DisplayServer.WINDOW_MOD
 
 
 func _ready() -> void:
-	for i in range(WINDOW_MODES.size()):
-		if DisplayServer.window_get_mode() == WINDOW_MODES[i]:
-			selected = i
+	select(ConfigHandler.load_window_mode())
+	_on_item_selected(ConfigHandler.load_window_mode())
 
 
 func _on_item_selected(index: int) -> void:
 	DisplayServer.window_set_mode(WINDOW_MODES[index])
+	ConfigHandler.save_window_mode(index)

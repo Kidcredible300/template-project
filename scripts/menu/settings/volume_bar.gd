@@ -7,7 +7,7 @@ extends HSlider
 
 
 func _ready() -> void:
-	AudioServer.set_bus_volume_linear(bus, GlobalSettings.get_volume(bus_name))
+	AudioServer.set_bus_volume_linear(bus, ConfigHandler.load_audio_setting(bus_name))
 	value = AudioServer.get_bus_volume_linear(bus)
 	max_value = maximum_volume/100
 	step = max_value/100.0
@@ -15,4 +15,4 @@ func _ready() -> void:
 
 func _on_value_changed(val: float) -> void:
 	AudioServer.set_bus_volume_linear(bus, val)
-	GlobalSettings.set_volume(bus_name, val)
+	ConfigHandler.save_audio_setting(bus_name, val)
