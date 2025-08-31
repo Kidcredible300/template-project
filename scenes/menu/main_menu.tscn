@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cruklgu2nc3fd"]
+[gd_scene load_steps=9 format=3 uid="uid://cruklgu2nc3fd"]
 
 [ext_resource type="Script" uid="uid://bqlvpr8anm0cb" path="res://scripts/menu/menu_focus.gd" id="1_hj162"]
 [ext_resource type="Theme" uid="uid://cegyp5c4jrryo" path="res://miscellaneous/Theme.tres" id="1_xn6kt"]
 [ext_resource type="Script" uid="uid://d38tp0fjlsg6n" path="res://scripts/menu/scene_change.gd" id="2_xn6kt"]
 [ext_resource type="Script" uid="uid://crnyi0ppi7qeq" path="res://scripts/menu/change_menu.gd" id="3_isoef"]
 [ext_resource type="Script" uid="uid://ubj8sdpc3djb" path="res://scripts/menu/quit_button.gd" id="4_qgo02"]
-[ext_resource type="PackedScene" uid="uid://cd7sn15ycn4qy" path="res://scenes/menu/options.tscn" id="6_xn6kt"]
+[ext_resource type="Script" uid="uid://jt4vd5nu2fgj" path="res://scripts/menu/volume_bar.gd" id="6_isoef"]
+[ext_resource type="Script" uid="uid://c1da0c2oukwk8" path="res://scripts/menu/fullscreen.gd" id="7_qgo02"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s51c5"]
 font_size = 64
@@ -26,7 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.195877, 0.195877, 0.195877, 1)
 
 [node name="Title" type="CanvasLayer" parent="."]
 
@@ -45,33 +46,46 @@ horizontal_alignment = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Normal Buttons" type="VBoxContainer" parent="UI" node_paths=PackedStringArray("first_element")]
+[node name="Normal" type="Panel" parent="UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -129.0
+offset_top = -96.0
+offset_right = 129.0
+offset_bottom = 96.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xn6kt")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Normal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xn6kt")
+
+[node name="Normal Buttons" type="VBoxContainer" parent="UI/Normal/MarginContainer" node_paths=PackedStringArray("first_element")]
+layout_mode = 2
 script = ExtResource("1_hj162")
 first_element = NodePath("Options Button")
 
-[node name="Start Button" type="Button" parent="UI/Normal Buttons"]
-custom_minimum_size = Vector2(200, 50)
+[node name="Start Button" type="Button" parent="UI/Normal/MarginContainer/Normal Buttons"]
 layout_mode = 2
+size_flags_vertical = 3
 focus_neighbor_bottom = NodePath("../Options Button")
 focus_next = NodePath("../Options Button")
 theme = ExtResource("1_xn6kt")
 text = "Start"
 script = ExtResource("2_xn6kt")
 
-[node name="Options Button" type="Button" parent="UI/Normal Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
-custom_minimum_size = Vector2(200, 50)
+[node name="Options Button" type="Button" parent="UI/Normal/MarginContainer/Normal Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
 layout_mode = 2
+size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Start Button")
 focus_neighbor_bottom = NodePath("../Quit Button")
 focus_next = NodePath("../Quit Button")
@@ -79,51 +93,142 @@ focus_previous = NodePath("../Start Button")
 theme = ExtResource("1_xn6kt")
 text = "Options"
 script = ExtResource("3_isoef")
-to_hide = NodePath("..")
-to_show = NodePath("../../Options Buttons")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Options")
 
-[node name="Quit Button" type="Button" parent="UI/Normal Buttons"]
-custom_minimum_size = Vector2(200, 50)
+[node name="Quit Button" type="Button" parent="UI/Normal/MarginContainer/Normal Buttons"]
 layout_mode = 2
+size_flags_vertical = 3
 focus_neighbor_top = NodePath("../Options Button")
 focus_previous = NodePath("../Options Button")
 theme = ExtResource("1_xn6kt")
 text = "Quit"
 script = ExtResource("4_qgo02")
 
-[node name="Options Buttons" type="VBoxContainer" parent="UI" node_paths=PackedStringArray("first_element")]
+[node name="Options" type="Panel" parent="UI"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -121.0
+offset_top = -156.0
+offset_right = 121.0
+offset_bottom = 156.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xn6kt")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xn6kt")
+
+[node name="Options Buttons" type="VBoxContainer" parent="UI/Options/MarginContainer" node_paths=PackedStringArray("first_element")]
+layout_mode = 2
 script = ExtResource("1_hj162")
 first_element = NodePath("Return Button")
 
-[node name="Options" parent="UI/Options Buttons" instance=ExtResource("6_xn6kt")]
+[node name="Master Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
 layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xn6kt")
+text = "Master Volume"
 
-[node name="Return Button" type="Button" parent="UI/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+[node name="Master Volume" type="HSlider" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_bottom = NodePath("../Music Volume")
+focus_next = NodePath("../Music Volume")
+theme = ExtResource("1_xn6kt")
+value = 100.0
+script = ExtResource("6_isoef")
+bus_name = "Master"
+
+[node name="Music Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xn6kt")
+text = "Music Volume"
+
+[node name="Music Volume" type="HSlider" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_top = NodePath("../Master Volume")
+focus_neighbor_bottom = NodePath("../Sound Volume")
+focus_next = NodePath("../Sound Volume")
+focus_previous = NodePath("../Master Volume")
+theme = ExtResource("1_xn6kt")
+value = 100.0
+script = ExtResource("6_isoef")
+bus_name = "Music"
+
+[node name="Sound Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xn6kt")
+text = "Sound Volume"
+
+[node name="Sound Volume" type="HSlider" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_top = NodePath("../Music Volume")
+focus_neighbor_bottom = NodePath("../Fullscreen")
+focus_next = NodePath("../Fullscreen")
+focus_previous = NodePath("../Music Volume")
+theme = ExtResource("1_xn6kt")
+value = 100.0
+script = ExtResource("6_isoef")
+bus_name = "Sound"
+
+[node name="Fullscreen Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_xn6kt")
+text = "Window Mode"
+
+[node name="Fullscreen" type="OptionButton" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 6
+focus_neighbor_top = NodePath("../Sound Volume")
+focus_previous = NodePath("../Sound Volume")
+theme = ExtResource("1_xn6kt")
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
+script = ExtResource("7_qgo02")
+
+[node name="Spacer" type="Control" parent="UI/Options/MarginContainer/Options Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Return Button" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-focus_neighbor_top = NodePath("../Options/Fullscreen")
-focus_previous = NodePath("../Options/Fullscreen")
+size_flags_vertical = 6
 theme = ExtResource("1_xn6kt")
 text = "Return"
 script = ExtResource("3_isoef")
-to_hide = NodePath("..")
-to_show = NodePath("../../Normal Buttons")
+to_hide = NodePath("../../..")
+to_show = NodePath("../../../../Normal")
 
-[connection signal="visibility_changed" from="UI/Normal Buttons" to="UI/Normal Buttons" method="_on_visibility_changed"]
-[connection signal="pressed" from="UI/Normal Buttons/Start Button" to="UI/Normal Buttons/Start Button" method="_on_pressed"]
-[connection signal="pressed" from="UI/Normal Buttons/Options Button" to="UI/Normal Buttons/Options Button" method="_on_pressed"]
-[connection signal="pressed" from="UI/Normal Buttons/Quit Button" to="UI/Normal Buttons/Quit Button" method="_on_pressed"]
-[connection signal="visibility_changed" from="UI/Options Buttons" to="UI/Options Buttons" method="_on_visibility_changed"]
-[connection signal="pressed" from="UI/Options Buttons/Return Button" to="UI/Options Buttons/Return Button" method="_on_pressed"]
+[connection signal="visibility_changed" from="UI/Normal/MarginContainer/Normal Buttons" to="UI/Normal/MarginContainer/Normal Buttons" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Start Button" to="UI/Normal/MarginContainer/Normal Buttons/Start Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Options Button" to="UI/Normal/MarginContainer/Normal Buttons/Options Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/Normal/MarginContainer/Normal Buttons/Quit Button" to="UI/Normal/MarginContainer/Normal Buttons/Quit Button" method="_on_pressed"]
+[connection signal="visibility_changed" from="UI/Options/MarginContainer/Options Buttons" to="UI/Options/MarginContainer/Options Buttons" method="_on_visibility_changed"]
+[connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Master Volume" to="UI/Options/MarginContainer/Options Buttons/Master Volume" method="_on_value_changed"]
+[connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Music Volume" to="UI/Options/MarginContainer/Options Buttons/Music Volume" method="_on_value_changed"]
+[connection signal="value_changed" from="UI/Options/MarginContainer/Options Buttons/Sound Volume" to="UI/Options/MarginContainer/Options Buttons/Sound Volume" method="_on_value_changed"]
+[connection signal="item_selected" from="UI/Options/MarginContainer/Options Buttons/Fullscreen" to="UI/Options/MarginContainer/Options Buttons/Fullscreen" method="_on_item_selected"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Return Button" to="UI/Options/MarginContainer/Options Buttons/Return Button" method="_on_pressed"]
