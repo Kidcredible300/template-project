@@ -26,7 +26,6 @@ const MOUSE_INPUT_DICT : Dictionary = {"Left Mouse Button" : MOUSE_BUTTON_LEFT,
 @onready var action_list = $"MarginContainer/VBoxContainer/ScrollContainer/Action List"
 
 func _ready() -> void:
-	print(Input.get_connected_joypads())
 	_load_bindings()
 	_make_input_dictionary()
 	_create_action_list()
@@ -62,8 +61,8 @@ func _make_input_dictionary() -> void:
 		var fancy : String = input
 		input[0] = input[0].to_upper()
 		for i in input.length():
-			var char : String = input[i]
-			if char == "_":
+			var character : String = input[i]
+			if character == "_":
 				input[i] = " "
 				if i+1 < input.length():
 					input[i+1] = input[i+1].to_upper()
@@ -161,7 +160,7 @@ func _on_input_button_pressed(button, action) -> void:
 
 func _fix_input_name(input : String) -> String:
 	if input_set in gamepad_sets:
-		var fancy : String
+		var fancy : String = ""
 		if input.contains("Joypad Motion"):
 			var cardinal_directions = {true : {true : " -1 (Up)", false : " 1 (Down)"}, false : {true : "-1 (Left)", false : "1 (Right)"} }
 			fancy += input.substr(input.find("(")+1, input.find("Axis")) + " "
