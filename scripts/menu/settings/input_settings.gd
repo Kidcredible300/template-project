@@ -26,6 +26,7 @@ const MOUSE_INPUT_DICT : Dictionary = {"Left Mouse Button" : MOUSE_BUTTON_LEFT,
 @onready var action_list = $"MarginContainer/VBoxContainer/ScrollContainer/Action List"
 
 func _ready() -> void:
+	print(Input.get_connected_joypads())
 	_load_bindings()
 	_make_input_dictionary()
 	_create_action_list()
@@ -71,14 +72,21 @@ func _make_input_dictionary() -> void:
 
 func _input(event: InputEvent) -> void:
 	if is_remapping:
+		if event is InputEventJoypadMotion and abs(event.axis_value) < 0.5:
+			accept_event()
+			return
 		if input_set in keyboard_sets:
 			if event.get_class() in ["InputEventKey", "InputEventMouseButton"]:
 				_remap(event)
+			elif event is InputEventMouseMotion:
+				return
 			else:
 				_finish_mapping()
 		if input_set in gamepad_sets:
 			if event.get_class() in ["InputEventJoypadButton", "InputEventJoypadMotion"]:
 				_remap(event)
+			elif event is InputEventMouseMotion:
+				return
 			else:
 				_finish_mapping()
 		accept_event()
@@ -88,6 +96,12 @@ func _remap(event : InputEvent, initial_map : bool = false) -> void:
 	# Avoid double clicks
 	if event is InputEventMouseButton and event.double_click:
 		event.double_click = false
+	# Avoid a weird error with gamepad joysticks
+	if event is InputEventJoypadMotion:
+		if event.axis_value < 0:
+			event.axis_value = -1
+		if event.axis_value > 0:
+			event.axis_value = 1
 	var events : Array = InputMap.action_get_events(action_to_remap)
 	InputMap.action_erase_events(action_to_remap)
 	for i : int in range(events.size()):
