@@ -9,12 +9,7 @@ const SETTINGS_FILE_PATH = "user://settings.ini"
 
 func _ready() -> void:
 	if !FileAccess.file_exists(SETTINGS_FILE_PATH):
-		# Save Keybinding Settings
-		InputMap.load_from_project_settings()
-		for input : String in INPUTS:
-			var events : Array = InputMap.action_get_events(input)
-			for i in range(KEYBINDING_SETS):
-				config.set_value("Keybinding"+str(i), input, events[i].as_text())
+		save_keybind_settings()
 		
 		#Save Graphical Settings
 		config.set_value("video", "window_mode", 0)
@@ -28,6 +23,18 @@ func _ready() -> void:
 		config.save(SETTINGS_FILE_PATH)
 	else:
 		config.load(SETTINGS_FILE_PATH)
+
+
+func save_keybind_settings() -> void:
+	for input : String in INPUTS:
+		var events : Array = InputMap.action_get_events(input)
+		for i in range(KEYBINDING_SETS):
+			config.set_value("Keybinding"+str(i), input, events[i].as_text())
+	config.save(SETTINGS_FILE_PATH)
+
+
+func load_keybind_setting(bind_set : int, action : String) -> String:
+	return config.get_value("Keybinding"+str(bind_set), action)
 
 
 func save_window_mode(value : int) -> void:

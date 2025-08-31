@@ -11,12 +11,49 @@ var is_remapping : bool = false
 var action_to_remap = null
 var remapping_button = null
 
+const MOUSE_INPUT_DICT : Dictionary = {"Left Mouse Button" : MOUSE_BUTTON_LEFT,
+		"Right Mouse Button" : MOUSE_BUTTON_RIGHT,
+		"Middle Mouse Button" : MOUSE_BUTTON_MIDDLE,
+		"Mouse Wheel Up" : MOUSE_BUTTON_WHEEL_UP,
+		"Mouse Wheel Down" : MOUSE_BUTTON_WHEEL_DOWN,
+		"Mouse Wheel Left" : MOUSE_BUTTON_WHEEL_LEFT,
+		"Mouse Wheel Right" : MOUSE_BUTTON_WHEEL_RIGHT,
+		"Mouse Thumb Button 1" : MOUSE_BUTTON_XBUTTON1,
+		"Mouse Thumb Button 2" : MOUSE_BUTTON_XBUTTON2
+}
+
 @onready var input_button : PackedScene = preload("res://scenes/menu/input_button.tscn")
 @onready var action_list = $"MarginContainer/VBoxContainer/ScrollContainer/Action List"
 
 func _ready() -> void:
+	_load_bindings()
 	_make_input_dictionary()
 	_create_action_list()
+
+
+func _load_bindings() -> void:
+	for input : String in inputs:
+		var key : String = ConfigHandler.load_keybind_setting(input_set, input)
+		var input_event : InputEvent
+		if key.contains("Mouse Button"):
+			var mouse_event : InputEventMouseButton = InputEventMouseButton.new()
+			mouse_event.button_index = MOUSE_INPUT_DICT[key]
+			input_event = mouse_event
+		elif key.contains("Joypad Motion"):
+			var joymove_event = InputEventJoypadMotion.new()
+			joymove_event.axis = int(key[22]) # Character 22 is always the axis for a Joypad Motion String
+			joymove_event.axis_value = int(key.right(5).trim_prefix(" ")) # Value is always the last 5 characters
+			input_event = joymove_event
+		elif key.contains("Joypad Button"):
+			var joybut_event = InputEventJoypadButton.new()
+			joybut_event.button_index = int(key.substr(14, 3).trim_suffix("(").trim_suffix(" "))
+			input_event = joybut_event
+		else:
+			var key_event = InputEventKey.new()
+			key_event.keycode = OS.find_keycode_from_string(key.trim_suffix(" (Physical)"))
+			input_event = key_event
+		action_to_remap = input
+		_remap(input_event, true)
 
 
 func _make_input_dictionary() -> void:
@@ -47,7 +84,7 @@ func _input(event: InputEvent) -> void:
 		accept_event()
 
 
-func _remap(event : InputEvent) -> void:
+func _remap(event : InputEvent, initial_map : bool = false) -> void:
 	# Avoid double clicks
 	if event is InputEventMouseButton and event.double_click:
 		event.double_click = false
@@ -59,7 +96,8 @@ func _remap(event : InputEvent) -> void:
 		else:
 			InputMap.action_add_event(action_to_remap, events[i])
 	events = InputMap.action_get_events(action_to_remap)
-	_finish_mapping()
+	if not initial_map:
+		_finish_mapping()
 
 
 func _finish_mapping() -> void:
@@ -69,10 +107,13 @@ func _finish_mapping() -> void:
 	is_remapping = false
 	action_to_remap = null
 	remapping_button = null
+	ConfigHandler.save_keybind_settings()
 
 
-func _create_action_list() -> void:
-	InputMap.load_from_project_settings()
+func _create_action_list(use_project : bool = false) -> void:
+	if use_project:
+		InputMap.load_from_project_settings()
+		ConfigHandler.save_keybind_settings()
 	for item in action_list.get_children():
 		item.queue_free()
 	
@@ -127,4 +168,4 @@ func _fix_input_name(input : String) -> String:
 
 
 func _on_reset_button_pressed() -> void:
-	_create_action_list()
+	_create_action_list(true)

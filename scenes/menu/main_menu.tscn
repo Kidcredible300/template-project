@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://cruklgu2nc3fd"]
 
-[ext_resource type="Script" uid="uid://bqlvpr8anm0cb" path="res://scripts/menu/menu_focus.gd" id="1_hj162"]
+[ext_resource type="Script" uid="uid://bqlvpr8anm0cb" path="res://scripts/menu/navigation/menu_focus.gd" id="1_hj162"]
 [ext_resource type="Theme" uid="uid://cegyp5c4jrryo" path="res://miscellaneous/Theme.tres" id="1_xn6kt"]
-[ext_resource type="Script" uid="uid://d38tp0fjlsg6n" path="res://scripts/menu/scene_change.gd" id="2_xn6kt"]
-[ext_resource type="Script" uid="uid://crnyi0ppi7qeq" path="res://scripts/menu/change_menu.gd" id="3_isoef"]
-[ext_resource type="Script" uid="uid://ubj8sdpc3djb" path="res://scripts/menu/quit_button.gd" id="4_qgo02"]
-[ext_resource type="Script" uid="uid://jt4vd5nu2fgj" path="res://scripts/menu/volume_bar.gd" id="6_isoef"]
-[ext_resource type="Script" uid="uid://c1da0c2oukwk8" path="res://scripts/menu/fullscreen.gd" id="7_qgo02"]
-[ext_resource type="Script" uid="uid://buiuhfgubvqiu" path="res://scripts/menu/input_settings.gd" id="8_vovv2"]
+[ext_resource type="Script" uid="uid://d38tp0fjlsg6n" path="res://scripts/menu/navigation/scene_change.gd" id="2_xn6kt"]
+[ext_resource type="Script" uid="uid://crnyi0ppi7qeq" path="res://scripts/menu/navigation/change_menu.gd" id="3_isoef"]
+[ext_resource type="Script" uid="uid://ubj8sdpc3djb" path="res://scripts/menu/navigation/quit_button.gd" id="4_qgo02"]
+[ext_resource type="Script" uid="uid://jt4vd5nu2fgj" path="res://scripts/menu/settings/volume_bar.gd" id="6_isoef"]
+[ext_resource type="Script" uid="uid://c1da0c2oukwk8" path="res://scripts/menu/settings/fullscreen.gd" id="7_qgo02"]
+[ext_resource type="Script" uid="uid://buiuhfgubvqiu" path="res://scripts/menu/settings/input_settings.gd" id="8_vovv2"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -121,7 +121,7 @@ theme = ExtResource("1_xn6kt")
 layout_mode = 2
 theme = ExtResource("1_xn6kt")
 script = ExtResource("1_hj162")
-first_element = NodePath("Controls Button")
+first_element = NodePath("Return Button")
 
 [node name="Master Label" type="Label" parent="UI/Options/MarginContainer/Options Buttons"]
 layout_mode = 2
@@ -222,7 +222,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_xn6kt")
 
-[node name="Return Button2" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
+[node name="Return Button" type="Button" parent="UI/Options/MarginContainer/Options Buttons" node_paths=PackedStringArray("to_hide", "to_show")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 6
@@ -252,9 +252,11 @@ script = ExtResource("8_vovv2")
 layout_mode = 2
 theme = ExtResource("1_xn6kt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Keyboard Controls/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Keyboard Controls/MarginContainer" node_paths=PackedStringArray("first_element")]
 layout_mode = 2
 theme = ExtResource("1_xn6kt")
+script = ExtResource("1_hj162")
+first_element = NodePath("Return Button2")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Keyboard Controls/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -306,9 +308,11 @@ input_set = 1
 layout_mode = 2
 theme = ExtResource("1_xn6kt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Gamepad Controls/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Gamepad Controls/MarginContainer" node_paths=PackedStringArray("first_element")]
 layout_mode = 2
 theme = ExtResource("1_xn6kt")
+script = ExtResource("1_hj162")
+first_element = NodePath("Return Button2")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/Gamepad Controls/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -350,7 +354,8 @@ to_show = NodePath("../../../../Options")
 [connection signal="item_selected" from="UI/Options/MarginContainer/Options Buttons/Fullscreen" to="UI/Options/MarginContainer/Options Buttons/Fullscreen" method="_on_item_selected"]
 [connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Controls Button" to="UI/Options/MarginContainer/Options Buttons/Controls Button" method="_on_pressed"]
 [connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Controls Button2" to="UI/Options/MarginContainer/Options Buttons/Controls Button2" method="_on_pressed"]
-[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Return Button2" to="UI/Options/MarginContainer/Options Buttons/Return Button2" method="_on_pressed"]
+[connection signal="pressed" from="UI/Options/MarginContainer/Options Buttons/Return Button" to="UI/Options/MarginContainer/Options Buttons/Return Button" method="_on_pressed"]
+[connection signal="visibility_changed" from="UI/Keyboard Controls/MarginContainer/VBoxContainer" to="UI/Keyboard Controls/MarginContainer/VBoxContainer" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/Keyboard Controls/MarginContainer/VBoxContainer/Reset Button" to="UI/Keyboard Controls" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="UI/Keyboard Controls/MarginContainer/VBoxContainer/Return Button2" to="UI/Keyboard Controls/MarginContainer/VBoxContainer/Return Button2" method="_on_pressed"]
 [connection signal="pressed" from="UI/Gamepad Controls/MarginContainer/VBoxContainer/Reset Button" to="UI/Gamepad Controls" method="_on_reset_button_pressed"]
