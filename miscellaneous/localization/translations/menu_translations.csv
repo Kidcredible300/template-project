@@ -1,0 +1,16 @@
+key,en,fr
+TITLE,Template Project,Le Projet de Modèle
+START_BUTTON,Start,Commencer
+OPTIONS_BUTTON,Options,Réglages
+QUIT_BUTTON,Quit,Quitter
+MAST_VOL,Master Volume,Volume Principal
+MUSIC_VOL,Music Volume,Volume de Musique
+SOUND_VOL,Sound Volume,Volume des Bruits
+WINDOW_MODE,Window Mode,Mode de Fenêtre
+MODE_WINDOWED,Windowed,Fenêtre Flottant
+MODE_BORDERLESS,Borderless Fullscreen,Tout l’Écran (Sans Frontières)
+MODE_EXCLUSIVE,Exclusive Fullscreen,Tout l’Écran (Exclusif)
+KEYBOARD_BINDS,Keyboard Bindings,Des Contrôles du Clavier
+GAMEPAD_BINDS,Gamepad Bindings,Des Contrôles de la Manette
+GO_BACK_BUTTON,Return,Rentrer
+RESET_BUTTON,Reset to Default,Remettre aux Valeurs par Défaut
