@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://rxxi0sfqoxyq"]
+
+[ext_resource type="Theme" uid="uid://bwheixx1nqfej" path="res://menu/Theme.theme" id="1_b0sgo"]
+[ext_resource type="Script" uid="uid://dgnr8vkgaepl5" path="res://menu/scripts/controls/reset_to_defaults.gd" id="2_4f7p6"]
+[ext_resource type="Script" uid="uid://c2o6tu3dwahmy" path="res://menu/scripts/toggleble_area.gd" id="2_dmjqj"]
+[ext_resource type="Script" uid="uid://bk6pgy6r5cfj8" path="res://menu/scripts/controls/controls_manager.gd" id="2_mgty8"]
+[ext_resource type="Script" uid="uid://bm6b5hbw2hlcu" path="res://menu/scripts/swappable_area.gd" id="3_1qmgb"]
+[ext_resource type="PackedScene" uid="uid://evntwghne4x3" path="res://menu/scenes/audio_slider.tscn" id="6_ncgnf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_is2p2"]
+font_size = 96
+
+[sub_resource type="LabelSettings" id="LabelSettings_mgty8"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_dmjqj"]
+font_size = 24
+
+[node name="MainMenu" type="CanvasLayer" unique_id=654628670]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=681690049]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_b0sgo")
+
+[node name="Main" type="VBoxContainer" parent="MarginContainer" unique_id=571633205 node_paths=PackedStringArray("button", "focus", "other_area")]
+visible = false
+layout_mode = 2
+script = ExtResource("2_dmjqj")
+button = NodePath("VBoxContainer/Options")
+focus = NodePath("VBoxContainer/Options")
+other_area = NodePath("../Options")
+
+[node name="Title" type="Label" parent="MarginContainer/Main" unique_id=927833632]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Moby Dick Simulator"
+label_settings = SubResource("LabelSettings_is2p2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Main" unique_id=29264752]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Start" type="Button" parent="MarginContainer/Main/VBoxContainer" unique_id=1490841402]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"
+
+[node name="Options" type="Button" parent="MarginContainer/Main/VBoxContainer" unique_id=1242607267]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Options"
+
+[node name="Quit" type="Button" parent="MarginContainer/Main/VBoxContainer" unique_id=1583842783]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Quit"
+
+[node name="Options" type="VBoxContainer" parent="MarginContainer" unique_id=986609155 node_paths=PackedStringArray("button", "focus", "other_area")]
+layout_mode = 2
+script = ExtResource("2_dmjqj")
+button = NodePath("Menu Areas/Return")
+focus = NodePath("Menu Areas/Return")
+other_area = NodePath("../Main")
+
+[node name="Menu Areas" type="HBoxContainer" parent="MarginContainer/Options" unique_id=1603437570]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Controls" type="Button" parent="MarginContainer/Options/Menu Areas" unique_id=1714392013]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"OptionsMenuButton"
+text = "Controls"
+
+[node name="Audio" type="Button" parent="MarginContainer/Options/Menu Areas" unique_id=997251953]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"OptionsMenuButton"
+text = "Audio"
+
+[node name="Video" type="Button" parent="MarginContainer/Options/Menu Areas" unique_id=1634746621]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"OptionsMenuButton"
+text = "Video"
+
+[node name="Return" type="Button" parent="MarginContainer/Options/Menu Areas" unique_id=1045900410]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"OptionsMenuButton"
+text = "Return"
+
+[node name="Panel" type="Panel" parent="MarginContainer/Options" unique_id=1803560485]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Options/Panel" unique_id=1437636478 node_paths=PackedStringArray("areas", "to_focus", "buttons")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("3_1qmgb")
+areas = [NodePath("Controls"), NodePath("Audio"), NodePath("Video")]
+to_focus = [NodePath("Controls/HBoxContainer/Save"), NodePath("Audio/Panel/MarginContainer/VBoxContainer/Audio Slider")]
+buttons = [NodePath("../../Menu Areas/Controls"), NodePath("../../Menu Areas/Audio"), NodePath("../../Menu Areas/Video")]
+
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer" unique_id=828642280]
+visible = false
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Options/Panel/MarginContainer/Controls" unique_id=648537926]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Options/Panel/MarginContainer/Controls/Panel" unique_id=887263865]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Controls/Panel/MarginContainer" unique_id=979940738]
+layout_mode = 2
+
+[node name="Section" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Controls/Panel/MarginContainer/HBoxContainer" unique_id=1487970165]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Keyboard Marker" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Controls/Panel/MarginContainer/HBoxContainer/Section" unique_id=1369554789]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Keyboard"
+label_settings = SubResource("LabelSettings_mgty8")
+horizontal_alignment = 1
+
+[node name="Gamepad Marker" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Controls/Panel/MarginContainer/HBoxContainer/Section" unique_id=919999156]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Gamepad"
+label_settings = SubResource("LabelSettings_dmjqj")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Options/Panel/MarginContainer/Controls" unique_id=1436191748]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ControlsManager" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Controls/ScrollContainer" unique_id=1175024266]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_mgty8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Controls" unique_id=483020531]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Default" type="Button" parent="MarginContainer/Options/Panel/MarginContainer/Controls/HBoxContainer" unique_id=71836800]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_horizontal = 6
+focus_neighbor_right = NodePath("../Save")
+theme_type_variation = &"WoodButton"
+text = "Reset to Defaults"
+script = ExtResource("2_4f7p6")
+
+[node name="Save" type="Button" parent="MarginContainer/Options/Panel/MarginContainer/Controls/HBoxContainer" unique_id=1456257709]
+custom_minimum_size = Vector2(300, 75)
+layout_mode = 2
+size_flags_horizontal = 6
+focus_neighbor_left = NodePath("../Default")
+theme_type_variation = &"WoodButton"
+text = "Save Changes"
+
+[node name="Audio" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer" unique_id=1439351319]
+visible = false
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Options/Panel/MarginContainer/Audio" unique_id=2100850349]
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Options/Panel/MarginContainer/Audio/Panel" unique_id=206125182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Audio/Panel/MarginContainer" unique_id=138964218]
+layout_mode = 2
+
+[node name="Audio Slider" parent="MarginContainer/Options/Panel/MarginContainer/Audio/Panel/MarginContainer/VBoxContainer" unique_id=1520184378 instance=ExtResource("6_ncgnf")]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Audio Slider2" parent="MarginContainer/Options/Panel/MarginContainer/Audio/Panel/MarginContainer/VBoxContainer" unique_id=171914862 instance=ExtResource("6_ncgnf")]
+layout_mode = 2
+size_flags_vertical = 6
+track = "Music"
+
+[node name="Audio Slider3" parent="MarginContainer/Options/Panel/MarginContainer/Audio/Panel/MarginContainer/VBoxContainer" unique_id=1428398391 instance=ExtResource("6_ncgnf")]
+layout_mode = 2
+size_flags_vertical = 2
+track = "Sound"
+
+[node name="Video" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer" unique_id=2053929649]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video" unique_id=224055532]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/VBoxContainer" unique_id=1760723638]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/Options/Panel/MarginContainer/Video/VBoxContainer/HBoxContainer" unique_id=1576152889]
+layout_mode = 2

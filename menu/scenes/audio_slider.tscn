@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://evntwghne4x3"]
+
+[ext_resource type="Script" uid="uid://cd3rxu8crqecb" path="res://menu/scripts/audio_slider.gd" id="1_ngfie"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fakln"]
+font_size = 32
+
+[node name="Audio Slider" type="VBoxContainer" unique_id=1520184378]
+custom_minimum_size = Vector2(600, 0)
+size_flags_horizontal = 4
+script = ExtResource("1_ngfie")
+
+[node name="Label" type="Label" parent="." unique_id=1312675672]
+layout_mode = 2
+text = "Master Volume"
+label_settings = SubResource("LabelSettings_fakln")
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="." unique_id=1808904982]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.01
+value = 0.7
+ticks_on_borders = true

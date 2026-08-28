@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cuyqf7t1bsjla"]
+
+[ext_resource type="Script" uid="uid://dr8y40hu7e7ey" path="res://menu/scripts/controls/controls_panel.gd" id="2_4x5h3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_52q8k"]
+font_size = 32
+
+[node name="Panel" type="Panel" unique_id=329180222]
+custom_minimum_size = Vector2(0, 150)
+offset_right = 400.0
+offset_bottom = 100.0
+script = ExtResource("2_4x5h3")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=604354298]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1606243837]
+layout_mode = 2
+
+[node name="Input Name" type="Label" parent="MarginContainer/HBoxContainer" unique_id=971735207]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Input Name"
+label_settings = SubResource("LabelSettings_52q8k")
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=228871760]
+layout_mode = 2
+size_flags_horizontal = 10
