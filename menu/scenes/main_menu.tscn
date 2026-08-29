@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bk6pgy6r5cfj8" path="res://menu/scripts/controls/controls_manager.gd" id="2_mgty8"]
 [ext_resource type="Script" uid="uid://bm6b5hbw2hlcu" path="res://menu/scripts/swappable_area.gd" id="3_1qmgb"]
 [ext_resource type="PackedScene" uid="uid://evntwghne4x3" path="res://menu/scenes/audio_slider.tscn" id="6_ncgnf"]
+[ext_resource type="Script" uid="uid://bubc8iumnbarx" path="res://menu/scripts/video_settings.gd" id="7_mib12"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_is2p2"]
 font_size = 96
@@ -15,6 +16,9 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_dmjqj"]
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_8lf8i"]
+font_size = 32
 
 [node name="MainMenu" type="CanvasLayer" unique_id=654628670]
 
@@ -232,13 +236,82 @@ track = "Sound"
 [node name="Video" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer" unique_id=2053929649]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video" unique_id=224055532]
+[node name="Panel" type="Panel" parent="MarginContainer/Options/Panel/MarginContainer/Video" unique_id=421952521]
+custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/VBoxContainer" unique_id=1760723638]
+[node name="Inner Settings" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel" unique_id=224055532]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -102.5
+offset_right = 114.0
+offset_bottom = 102.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = ExtResource("1_b0sgo")
+script = ExtResource("7_mib12")
+
+[node name="Display" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings" unique_id=2065388064]
+layout_mode = 2
+text = "Display"
+label_settings = SubResource("LabelSettings_8lf8i")
+horizontal_alignment = 1
+
+[node name="Display Mode" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings" unique_id=1760723638]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/Options/Panel/MarginContainer/Video/VBoxContainer/HBoxContainer" unique_id=1576152889]
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/Display Mode" unique_id=1365274283]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/Display Mode" unique_id=395825930]
+layout_mode = 2
+text = "Display Mode"
+
+[node name="Resolution" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings" unique_id=496357288]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/Resolution" unique_id=49329861]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/Resolution" unique_id=1441602360]
+layout_mode = 2
+text = "Resolution"
+
+[node name="VSync" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings" unique_id=1872268961]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/VSync" unique_id=1307228838]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(6, 0)
+offset_transform_scale = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/VSync" unique_id=468792831]
+layout_mode = 2
+text = "VSync"
+
+[node name="FPS Limit" type="HBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings" unique_id=1990243100]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/FPS Limit" unique_id=1401962507]
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 144.0
+
+[node name="Label" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/FPS Limit" unique_id=1921973458]
+layout_mode = 2
+text = "FPS Limit"
