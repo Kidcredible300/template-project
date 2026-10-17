@@ -51,6 +51,7 @@ func end_keybind_change() -> void:
 	input_button.set_input_icon()
 	input_button.text = ""
 	input_button = null
+	get_parent().save_controls()
 
 
 func _input(event: InputEvent) -> void:

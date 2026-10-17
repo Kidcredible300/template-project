@@ -31,7 +31,6 @@ grow_vertical = 2
 theme = ExtResource("1_b0sgo")
 
 [node name="Main" type="VBoxContainer" parent="MarginContainer" unique_id=571633205 node_paths=PackedStringArray("button", "focus", "other_area")]
-visible = false
 layout_mode = 2
 script = ExtResource("2_dmjqj")
 button = NodePath("VBoxContainer/Options")
@@ -41,7 +40,7 @@ other_area = NodePath("../Options")
 [node name="Title" type="Label" parent="MarginContainer/Main" unique_id=927833632]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Moby Dick Simulator"
+text = "Template Project"
 label_settings = SubResource("LabelSettings_is2p2")
 horizontal_alignment = 1
 
@@ -69,6 +68,7 @@ size_flags_horizontal = 4
 text = "Quit"
 
 [node name="Options" type="VBoxContainer" parent="MarginContainer" unique_id=986609155 node_paths=PackedStringArray("button", "focus", "other_area")]
+visible = false
 layout_mode = 2
 script = ExtResource("2_dmjqj")
 button = NodePath("Menu Areas/Return")
@@ -126,7 +126,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 script = ExtResource("3_1qmgb")
 areas = [NodePath("Controls"), NodePath("Audio"), NodePath("Video")]
-to_focus = [NodePath("Controls/HBoxContainer/Save"), NodePath("Audio/Panel/MarginContainer/VBoxContainer/Audio Slider")]
+to_focus = [NodePath("Controls/HBoxContainer/Default"), NodePath("Audio/Panel/MarginContainer/VBoxContainer/Audio Slider"), NodePath("Video/Panel/Inner Settings/Display Mode/OptionButton")]
 buttons = [NodePath("../../Menu Areas/Controls"), NodePath("../../Menu Areas/Audio"), NodePath("../../Menu Areas/Video")]
 
 [node name="Controls" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer" unique_id=828642280]
@@ -185,18 +185,9 @@ size_flags_vertical = 8
 custom_minimum_size = Vector2(300, 75)
 layout_mode = 2
 size_flags_horizontal = 6
-focus_neighbor_right = NodePath("../Save")
 theme_type_variation = &"WoodButton"
 text = "Reset to Defaults"
 script = ExtResource("2_4f7p6")
-
-[node name="Save" type="Button" parent="MarginContainer/Options/Panel/MarginContainer/Controls/HBoxContainer" unique_id=1456257709]
-custom_minimum_size = Vector2(300, 75)
-layout_mode = 2
-size_flags_horizontal = 6
-focus_neighbor_left = NodePath("../Default")
-theme_type_variation = &"WoodButton"
-text = "Save Changes"
 
 [node name="Audio" type="VBoxContainer" parent="MarginContainer/Options/Panel/MarginContainer" unique_id=1439351319]
 visible = false
@@ -297,6 +288,7 @@ layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(6, 0)
 offset_transform_scale = Vector2(2, 2)
+button_pressed = true
 
 [node name="Label" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/VSync" unique_id=468792831]
 layout_mode = 2
@@ -308,9 +300,9 @@ size_flags_horizontal = 4
 
 [node name="SpinBox" type="SpinBox" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/FPS Limit" unique_id=1401962507]
 layout_mode = 2
-min_value = 1.0
-max_value = 1000.0
-value = 144.0
+max_value = 9999.0
+value = 120.0
+editable = false
 
 [node name="Label" type="Label" parent="MarginContainer/Options/Panel/MarginContainer/Video/Panel/Inner Settings/FPS Limit" unique_id=1921973458]
 layout_mode = 2

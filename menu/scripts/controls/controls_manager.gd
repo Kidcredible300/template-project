@@ -33,7 +33,7 @@ func save_controls() -> void:
 			var events : Array[InputEvent] = InputMap.action_get_events(i)
 			SimpleSettings.set_value("settings", "controls/"+i, events)
 	SimpleSettings.save()
-	_ready()
+	load_controls()
 
 
 func load_controls() -> void:
