@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func load_volume() -> void:
 	SimpleSettings.load()
-	if SimpleSettings.has_section("settings", "audio"):
+	if SimpleSettings.has_section("settings", "audio") and SimpleSettings.has_section_key("settings", "audio/"+track):
 		set_value(SimpleSettings.get_value("settings", "audio/"+track))
 		volume_change.emit(track, slider.value)
 	else:
